@@ -6,15 +6,16 @@
 	<groupId>com.example</groupId>
 	<artifactId>java-pro-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>todelete</name>
+	<name>java-pro-spring</name>
 
 	<properties>
 		<java.version>17</java.version>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
 
 	</dependencies>
-
 
 </project>

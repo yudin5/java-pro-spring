@@ -10,3 +10,4 @@ INSERT INTO users(username)
 VALUES ('Ivan'),
        ('Maria'),
        ('Petr')
+ON CONFLICT (username) DO NOTHING;

@@ -1,20 +1,10 @@
 package org.example.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Setter
-@Getter
-public class UserDto {
-
-    private Long id;
-    private String username;
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                '}';
-    }
+/**
+ * ДТО для сущности пользователя
+ *
+ * @param id       ID идентификатор записи
+ * @param username имя пользователя (уникальное)
+ */
+public record UserDto(Long id, String username) {
 }

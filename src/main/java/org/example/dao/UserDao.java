@@ -1,6 +1,6 @@
 package org.example.dao;
 
-import org.example.dto.User;
+import org.example.dto.UserDto;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
@@ -40,7 +40,7 @@ public class UserDao {
         }
     }
 
-    public User findById(long id) throws SQLException {
+    public UserDto findById(long id) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id = ?");
             statement.setLong(1, id);
@@ -49,24 +49,24 @@ public class UserDao {
             if (!result.next()) {
                 return null;
             }
-            User user = new User();
-            user.setId(result.getLong(1));
-            user.setUsername(result.getString(2));
-            return user;
+            UserDto userDto = new UserDto();
+            userDto.setId(result.getLong(1));
+            userDto.setUsername(result.getString(2));
+            return userDto;
         }
     }
 
-    public List<User> getAll() throws SQLException {
+    public List<UserDto> getAll() throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("SELECT * FROM users");
 
-            List<User> list = new ArrayList<>();
+            List<UserDto> list = new ArrayList<>();
             while (results.next()) {
-                User user = new User();
-                user.setId(results.getLong(1));
-                user.setUsername(results.getString(2));
-                list.add(user);
+                UserDto userDto = new UserDto();
+                userDto.setId(results.getLong(1));
+                userDto.setUsername(results.getString(2));
+                list.add(userDto);
             }
             return list;
         }

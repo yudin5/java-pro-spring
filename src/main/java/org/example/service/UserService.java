@@ -1,34 +1,32 @@
 package org.example.service;
 
-import org.example.dao.UserDao;
-import org.example.dto.User;
+import lombok.RequiredArgsConstructor;
+import org.example.entity.User;
+import org.example.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public int createUser(long id, String username) throws SQLException {
-        return userDao.createUser(id, username);
-    }
-
-    public boolean deleteUserById(long id) throws SQLException {
-        return userDao.deleteUserById(id);
-    }
+//    public int createUser(long id, String username) throws SQLException {
+//        return userDao.createUser(id, username);
+//    }
+//
+//    public boolean deleteUserById(long id) throws SQLException {
+//        return userDao.deleteUserById(id);
+//    }
 
     public User getUserById(long id) throws SQLException {
-        return userDao.findById(id);
+        return userRepository.findById(id).orElse(null);
     }
 
-    public List<User> getAllUsers() throws SQLException {
-        return userDao.getAll();
-    }
+//
+//    public List<User> getAllUsers() throws SQLException {
+//        return userDao.getAll();
+//    }
 }

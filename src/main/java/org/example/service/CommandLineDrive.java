@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+//@Service
 @RequiredArgsConstructor
-public class CommandLineDrive implements CommandLineRunner {
+public class CommandLineDrive {
 
     private final UserService userService;
 
-    @Override
+//    @Override
     public void run(String... args) {
         // Получение всех пользователей
         List<UserDto> allUsers = userService.getAllUsers();

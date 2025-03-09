@@ -21,11 +21,6 @@ public class ProductService {
      * @return список ДТО продуктов
      */
     public List<ProductDto> getAllProductsByUserId(Long userId) {
-
-        if (userId == null) {
-            throw new IllegalArgumentException("ID пользователя должен быть передан");
-        }
-
         return productRepository.getAllByUserId(userId).stream()
                 .map(product -> new ProductDto( // Возвращаем через примитивный маппинг
                         product.getId(),
@@ -44,10 +39,6 @@ public class ProductService {
      * @return ДТО продукта
      */
     public ProductDto getProductById(Long productId) {
-        if (productId == null) {
-            throw new IllegalArgumentException("ID продукта должен быть передан");
-        }
-
         return productRepository.findById(productId)
                 .map(product -> new ProductDto( // Возвращаем через примитивный маппинг
                         product.getId(),

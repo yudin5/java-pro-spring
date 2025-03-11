@@ -3,9 +3,16 @@ package org.example.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.dto.ProductDto;
+import org.example.dto.payment.PaymentRequest;
+import org.example.dto.payment.PaymentResponse;
+import org.example.entity.Product;
+import org.example.exceptions.IntegrationException;
 import org.example.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -29,6 +36,30 @@ public class ProductService {
                         product.getType(),
                         product.getUserId()))
                 .toList();
+    }
+
+    /**
+     * Процесс покупки, списания средств со счёта
+     *
+     * @param paymentRequest платёжный запрос
+     * @return ответ по платежу
+     */
+    @Transactional
+    public PaymentResponse buyProduct(PaymentRequest paymentRequest) {
+        String accountNumber = paymentRequest.getAccountNumber();
+        Product product = productRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(
+                        () -> new IntegrationException(String.format("Номер счёта [%s] не найден", accountNumber), HttpStatus.BAD_REQUEST)
+                );
+        BigDecimal initialBalance = product.getBalance();
+        BigDecimal paymentAmount = paymentRequest.getAmount();
+        if (initialBalance.compareTo(paymentAmount) < 0) {
+            throw new IntegrationException("Баланс недостаточен для оплаты", HttpStatus.BAD_REQUEST);
+        }
+        BigDecimal remainder = initialBalance.subtract(paymentAmount);
+        product.setBalance(remainder);
+        productRepository.saveAndFlush(product);
+        return new PaymentResponse("Payment successful, remainder = " + remainder);
     }
 
     /**

@@ -10,4 +10,4 @@ integration:
       connect-timeout: 3s
       read-timeout: 5s
       get-products-url: "/v1/api/products/all/user/"
-      buy-product-url: "/v1/api/products/buy"
+      buy-product-url: "/v1/api/products/execute"

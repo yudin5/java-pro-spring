@@ -21,7 +21,7 @@ public class PaymentController {
         return paymentService.getClientProducts(userId);
     }
 
-    @PostMapping("/products/buy")
+    @PostMapping("/products/execute")
     public PaymentResponse buyProduct(@RequestBody PaymentRequest paymentRequest) {
         return paymentService.buyProduct(paymentRequest);
     }

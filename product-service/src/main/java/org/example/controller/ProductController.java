@@ -2,6 +2,8 @@ package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.dto.ProductDto;
+import org.example.dto.payment.PaymentRequest;
+import org.example.dto.payment.PaymentResponse;
 import org.example.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +21,13 @@ public class ProductController {
         return productService.getAllProductsByUserId(userId);
     }
 
-    @GetMapping("/id")
-    public ProductDto getProductById(@RequestParam("productId") Long productId) {
+    @PostMapping("/execute")
+    public PaymentResponse execute(@RequestBody PaymentRequest paymentRequest) {
+        return productService.buyProduct(paymentRequest);
+    }
+
+    @GetMapping("/{productId}")
+    public ProductDto getProductById(@PathVariable("productId") Long productId) {
         return productService.getProductById(productId);
     }
 

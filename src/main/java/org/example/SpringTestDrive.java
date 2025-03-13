@@ -1,13 +1,9 @@
 package org.example;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
 public class SpringTestDrive {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringTestDrive.class, args);
+        System.out.println("Spring test drive root application started");
     }
 
 }
